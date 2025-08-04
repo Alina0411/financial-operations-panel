@@ -1,0 +1,23 @@
+<div class="transaction-control">
+  <div class="control-header">
+    <h1 class="page-title">Аналитика / Финансовые операции</h1>
+
+    <div class="control-actions">
+      <button type="button" class="btn-add-transaction" (click)="onAddTransaction()">
+        Добавить транзакцию
+      </button>
+
+      <div class="date-filters">
+          <app-date-range-picker
+            (dateRangeChange)="onDateRangeChange($event)"
+          ></app-date-range-picker>
+
+      </div>
+
+
+       <app-export-buttons
+         [transactions]="(transactions$ | async) || []"
+       ></app-export-buttons>
+    </div>
+  </div>
+</div>

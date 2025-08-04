@@ -1,0 +1,30 @@
+<div class="pagination-container">
+  <div class="pagination-info">{{ getPaginationInfo() }}</div>
+
+  <div class="pagination-controls">
+
+    <button class="nav-btn first" title="Первая страница" [disabled]="pagination.page === 1" (click)="onFirstPage()">«</button>
+    <button class="nav-btn prev" title="Предыдущая страница" [disabled]="pagination.page === 1" (click)="onPrevPage()"><</button>
+
+
+      <div class="page-numbers">
+        @for (page of getPageNumbers(); track page) {
+          <button class="page-btn" [class.active]="page === pagination.page" (click)="onPageChange(page)">{{ page }}</button>
+        }
+      </div>
+
+
+    <button class="nav-btn next" title="Следующая страница" [disabled]="pagination.page === pagination.totalPages" (click)="onNextPage()">></button>
+    <button class="nav-btn last" title="Последняя страница" [disabled]="pagination.page === pagination.totalPages" (click)="onLastPage()">»</button>
+  </div>
+
+
+  <div class="items-per-page">
+    <select class="limit-select" #limitSelect (change)="onLimitChange(+limitSelect.value)">
+      <option value="10">10</option>
+      <option value="15" [selected]="pagination.limit === 15">15</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+    </select>
+  </div>
+</div>

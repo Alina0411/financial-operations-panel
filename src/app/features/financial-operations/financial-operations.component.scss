@@ -1,0 +1,16 @@
+:host {
+  border-radius: 30px;
+  background-color: #F3F3F3;
+  overflow: hidden;
+  display: block;
+  max-width: 1560px;
+  margin: 0 auto;
+  padding: 35px;
+  box-sizing: border-box;
+}
+
+.financial-operations {
+  background-color: var(--color-background-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+

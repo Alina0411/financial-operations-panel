@@ -1,0 +1,19 @@
+<app-transaction-control></app-transaction-control>
+@if (transactions$ | async) {
+  <app-transaction-table
+    [transactions]="(transactions$ | async) || []"
+    (sort)="onSort($event)">
+  </app-transaction-table>
+}
+
+<app-pagination
+  [pagination]="(pagination$ | async) ?? { page: 1, limit: 15, total: 0, totalPages: 0 }"
+  (pageChange)="onPageChange($event)"
+  (limitChange)="onLimitChange($event)">
+</app-pagination>
+
+
+
+
+
+

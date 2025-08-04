@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {FinancialOperationsComponent} from './features/financial-operations/financial-operations.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [FinancialOperationsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'transaction-panel';
+  title = 'financial-operations-panel';
 }

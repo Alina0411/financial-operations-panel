@@ -1,0 +1,168 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h2 class="modal-title">Добавить транзакцию</h2>
+    <button type="button" (click)="onCancel()" class="close-button">
+      ✕
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="modal-form">
+    <div class="form-content">
+      
+      <div class="form-row">
+        <div class="input-group">
+          <label class="input-label">Дата *</label>
+          <input type="date" formControlName="date" class="form-input" required>
+          @if (date?.invalid && date?.touched) {
+            <div class="error-text">Дата обязательна</div>
+          }
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Время *</label>
+          <input type="time" formControlName="time" class="form-input" required>
+          @if (time?.invalid && time?.touched) {
+            <div class="error-text">Время обязательно</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label class="input-label">IZI ID *</label>
+          <input type="text" formControlName="iziId" class="form-input" required>
+          @if (iziId?.invalid && iziId?.touched) {
+            <div class="error-text">IZI ID обязателен</div>
+          }
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Телефон *</label>
+          <input type="tel" formControlName="phone" class="form-input" placeholder="77777777777" required>
+          @if (phone?.invalid && phone?.touched) {
+            <div class="error-text">
+              @if (phone?.hasError('required')) {
+                Телефон обязателен
+              } @else if (phone?.hasError('pattern')) {
+                Телефон должен содержать ровно 11 цифр
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label class="input-label">Номер документа *</label>
+          <input type="text" formControlName="documentNumber" class="form-input" required>
+          @if (documentNumber?.invalid && documentNumber?.touched) {
+            <div class="error-text">Номер документа обязателен</div>
+          }
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Тип платежа *</label>
+          <select formControlName="paymentType" class="form-input" required>
+            <option value="">Выберите тип</option>
+            @for (type of paymentTypes; track type) {
+              <option [value]="type">{{ type }}</option>
+            }
+          </select>
+          @if (paymentType?.invalid && paymentType?.touched) {
+            <div class="error-text">Тип платежа обязателен</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label class="input-label">Сумма *</label>
+          <div class="input-with-suffix">
+            <input type="number" formControlName="amount" class="form-input" step="0.01" min="0" required>
+            <span class="suffix">₽</span>
+          </div>
+          @if (amount?.invalid && amount?.touched) {
+            <div class="error-text">
+              @if (amount?.hasError('required')) {
+                Сумма обязательна
+              } @else if (amount?.hasError('min')) {
+                Сумма должна быть больше 0
+              }
+            </div>
+          }
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Автор *</label>
+          <select formControlName="author" class="form-input" required>
+            <option value="">Выберите автора</option>
+            @for (author of authors; track author) {
+              <option [value]="author">{{ author }}</option>
+            }
+          </select>
+          @if (author?.invalid && author?.touched) {
+            <div class="error-text">Автор обязателен</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label class="input-label">Тип наличности *</label>
+          <select formControlName="cashType" class="form-input" required>
+            <option value="">Выберите тип</option>
+            @for (type of cashTypes; track type) {
+              <option [value]="type">{{ type }}</option>
+            }
+          </select>
+          @if (cashType?.invalid && cashType?.touched) {
+            <div class="error-text">Тип наличности обязателен</div>
+          }
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Тип баланса *</label>
+          <select formControlName="balanceType" class="form-input" required>
+            <option value="">Выберите тип</option>
+            @for (type of balanceTypes; track type) {
+              <option [value]="type">{{ type }}</option>
+            }
+          </select>
+          @if (balanceType?.invalid && balanceType?.touched) {
+            <div class="error-text">Тип баланса обязателен</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label class="input-label">Ссылка на документ</label>
+          <input type="url" formControlName="dockLink" class="form-input" placeholder="https://example.com/doc/123">
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Комментарий</label>
+          <textarea formControlName="comment" class="form-input" rows="3" placeholder="Дополнительная информация"></textarea>
+        </div>
+      </div>
+
+      @if (error) {
+        <div class="error-message">
+          {{ error }}
+        </div>
+      }
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" (click)="onCancel()" [disabled]="loading">
+        Отмена
+      </button>
+      <button type="submit" class="btn-primary" [disabled]="loading || !form.valid">
+        @if (loading) {
+          ⏳
+        }
+        {{ loading ? 'Создание...' : 'Создать транзакцию' }}
+      </button>
+    </div>
+  </form>
+</div>

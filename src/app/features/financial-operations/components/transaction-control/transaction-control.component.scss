@@ -1,0 +1,58 @@
+.transaction-control {
+  overflow: hidden;
+  padding-bottom: 29px;
+}
+
+.control-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--padding-5xl);
+  flex-wrap: wrap;
+}
+
+.page-title {
+  color: var(--color-text-muted);
+  font-size: 25px;
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.control-actions {
+  display: flex;
+  align-items: center;
+}
+
+.btn-add-transaction {
+  background: var(--color-primary-green);
+  color: var(--color-text-dark-alt);
+  padding: var(--padding-md) var(--padding-3xl);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-normal);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  margin-right: 5px;
+
+  &:hover {
+    background: var(--color-hover-green);
+  }
+}
+
+.date-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-xs);
+  margin-right: 39px;
+}
+
+.export-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-xs);
+}
+

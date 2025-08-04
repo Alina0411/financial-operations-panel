@@ -1,0 +1,30 @@
+<div class="date-inputs">
+  <label class="date-input">
+    <span>С</span>
+    <i class="line"></i>
+    <input type="text"
+           name="startDate"
+           [(ngModel)]="startDate"
+           (input)="onStartDateChange()"
+           mask="d0.M0.0000"
+           placeholder="21.06.2024">
+  </label>
+
+  <label class="date-input">
+    <span>ПО</span>
+    <input type="text"
+           name="endDate"
+           [(ngModel)]="endDate"
+           (input)="onEndDateChange()"
+           mask="d0.M0.0000"
+           placeholder="21.07.2024">
+  </label>
+
+  <button type="button"
+          class="btn-show"
+          (click)="onShowClick()"
+  >
+    Показать
+  </button>
+
+</div>

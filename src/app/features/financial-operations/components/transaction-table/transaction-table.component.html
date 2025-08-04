@@ -1,0 +1,73 @@
+@if (loading) {
+  <div class="loading-overlay">
+    <div class="loading-spinner">Загрузка...</div>
+  </div>
+} @else if (transactions) {
+  <table  class="transaction-table-container">
+    <thead class="table-header">
+    <tr class="header-row">
+      @for (column of columns; track column.key) {
+        <th class="header-cell"
+            scope="col"
+            aria-sort="none"
+            [class.sortable]="column.sortable"
+            [class.aling] = ""
+            (click)="onSort(column.key)"
+        >
+          <span class="header-text">{{ column.title }}</span>
+          @if (column.sortable) {
+            <div class="btn-sort">
+              <button
+                class="sort-btn sort-asc"
+                type="button"
+                [attr.aria-pressed]="isSortAscActive(column.key)"
+                aria-label="Сортировать по возрастанию">
+                <img src="assets/image/icons/arrow.svg" alt="">
+              </button>
+              <button
+                class="sort-btn sort-desc"
+                type="button"
+                [attr.aria-pressed]="isSortDescActive(column.key)"
+                aria-label="Сортировать по убыванию">
+                <img src="assets/image/icons/arrow.svg" alt="">
+              </button>
+            </div>
+          }
+        </th>
+      }
+    </tr>
+    <tbody class="table-body">
+      @for (transaction of transactions ; track transaction.id) {
+        <tr class="table-row">
+          <td class="table-cell">{{ transaction.date | date:'dd/MM/yy HH:mm' }}</td>
+          <td class="table-cell">{{ transaction.iziId }}</td>
+          <td class="table-cell">{{ formatPhone(transaction.phone) }}</td>
+          <td class="table-cell" >
+            <span class="doc-number">
+              {{ transaction.documentNumber }}
+            </span>
+          </td>
+          <td class="table-cell">{{ transaction.paymentType }}</td>
+          <td class="table-cell amount-cell" [class.negative]="transaction.amount < 0">
+            {{ formatCurrency(transaction.amount) }}
+          </td>
+          <td class="table-cell">{{ transaction.author }}</td>
+          <td class="table-cell">{{ transaction.cashType }}</td>
+          <td class="table-cell">{{ transaction.balanceType }}</td>
+          <td class="table-cell">
+            <a href="{{ transaction.dockLink }}" target="_blank" class="doc-link">Link</a>
+          </td>
+          <td class="table-cell">
+            <span class="comment-text">{{ transaction.comment || '--' }}</span>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+@else {
+  <div>
+    <div class="empty-message">Нет данных для отображения</div>
+  </div>
+}
+

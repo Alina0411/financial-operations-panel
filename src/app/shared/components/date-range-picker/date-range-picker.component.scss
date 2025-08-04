@@ -1,0 +1,126 @@
+
+.date-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-xs);
+}
+
+.date-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-xs);
+}
+
+.date-input {
+  border: none;
+  background: var(--color-background-input);
+  padding: var(--padding-md) var(--padding-3xl);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+  line-height: 100%;
+  box-sizing: border-box;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  transition: all var(--transition-normal);
+
+  span {
+    position: relative;
+    margin-right: var(--padding-lg);
+    line-height: 100%;
+    font-size: var(--font-size-lg);
+
+    &:after {
+      position: absolute;
+      content: "";
+      height: 100%;
+      width: 1px;
+      background-color: var(--color-background-light);
+      opacity: 0.2;
+      margin-left: var(--padding-xs);
+    }
+  }
+
+  input {
+    border: none;
+    background: transparent;
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    line-height: 100%;
+    max-width: 84px;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    box-shadow: none;
+
+    &::placeholder {
+      color: var(--color-text-muted);
+      font-size: var(--font-size-lg);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
+    &::-webkit-focus-ring-color {
+      outline: none;
+    }
+  }
+  &:focus-within {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.1);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.1);
+  }
+
+  &::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.btn-show {
+  background: var(--color-text-muted);
+  color: var(--color-background-light);
+  border: none;
+  padding: var(--padding-md) var(--padding-3xl);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: 100%;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  outline: none;
+
+  &:hover {
+    background: var(--color-button-hover);
+    transform: translateY(1px);
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.1);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.1);
+  }
+}
+

@@ -1,0 +1,38 @@
+.export-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-xs);
+}
+.btn-export {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-sm);
+  background: var(--color-background-input);
+  padding: var(--padding-md) var(--padding-3xl);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  border: none;
+  font-weight: var(--font-weight-medium);
+
+  &:hover {
+    background: var(--color-background-dark);
+    border-color: var(--color-button-border);
+    color: var(--color-button-hover);
+    transform: translateY(1px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.export-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

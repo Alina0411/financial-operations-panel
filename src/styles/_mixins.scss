@@ -1,0 +1,12 @@
+
+@mixin button-base {
+  border: none;
+  padding: 8px 17px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}

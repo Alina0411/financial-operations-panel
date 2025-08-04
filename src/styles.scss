@@ -1,1 +1,247 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import 'styles/fonts';
+@import 'styles/variables';
+@import 'styles/mixins';
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $text-primary;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+  letter-spacing: $letter-spacing-tight;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  margin: 0 0 16px 0;
+  letter-spacing: $letter-spacing-tight;
+}
+
+h1 { font-size: $font-size-lg; }
+h2 { font-size: $font-size-lg; }
+h3 { font-size: $font-size-base; }
+h4 { font-size: $font-size-base; }
+h5 { font-size: $font-size-sm; }
+h6 { font-size: $font-size-xs; }
+
+p {
+  margin: 0 0 16px 0;
+  line-height: $line-height-normal;
+}
+:root {
+  --color-primary-green: #{$primary-green};
+  --color-text-muted: #{$text-muted};
+  --color-text-primary: #{$text-primary};
+  --color-background-light: #{$background-light};
+  --color-background-dark: #{$background-dark};
+  --color-background-input: #{$background-input};
+  --color-border: #{$border-color};
+  --color-link: #{$link-color};
+  --color-table-text: #{$table-text};
+  --color-pagination-inactive: rgba(80, 82, 88, 0.3);
+  --color-pagination-active: rgba(80, 82, 88, 0.8);
+
+  --color-text-dark: #{$text-dark};
+  --color-text-medium: #{$text-medium};
+  --color-text-light: #{$text-light};
+  --color-border-light: #{$border-light};
+  --color-border-medium: #{$border-medium};
+  --color-error: #{$error-color};
+  --color-hover-green: #{$hover-green};
+  --color-button-hover: #{$button-hover};
+  --color-button-border: #{$button-border};
+  --color-background-secondary: #{$background-secondary};
+  --color-text-dark-alt: #{$text-dark-alt};
+  --color-backdrop-overlay: rgba(0, 0, 0, 0.5);
+
+  --padding-xs: #{$padding-xs};
+  --padding-sm: #{$padding-sm};
+  --padding-md: #{$padding-md};
+  --padding-lg: #{$padding-lg};
+  --padding-xl: #{$padding-xl};
+  --padding-2xl: #{$padding-2xl};
+  --padding-3xl: #{$padding-3xl};
+  --padding-4xl: #{$padding-4xl};
+  --padding-5xl: #{$padding-5xl};
+  --padding-7xl: #{$padding-7xl};
+
+  --border-radius-sm: #{$border-radius-sm};
+  --border-radius-lg: #{$border-radius-lg};
+
+  --font-size-xs: #{$font-size-xs};
+  --font-size-sm: #{$font-size-sm};
+  --font-size-base: #{$font-size-base};
+  --font-size-lg: #{$font-size-lg};
+
+  --font-weight-normal: #{$font-weight-normal};
+  --font-weight-medium: #{$font-weight-medium};
+  --font-weight-semibold: #{$font-weight-semibold};
+
+  --transition-normal: #{$transition-normal};
+
+  --pagination-padding: #{$pagination-padding};
+}
+
+* {
+  font-family: $font-family-primary;
+  letter-spacing: $letter-spacing-tight;
+}
+.custom-dialog {
+  .mat-mdc-dialog-container {
+    padding: 0;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+  }
+
+  .mat-mdc-dialog-surface {
+    padding: 0;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+  }
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: transparent;
+  --mdc-dialog-container-elevation: 0;
+}
+
+.mat-mdc-dialog-surface {
+  box-shadow: none;
+}
+
+// Исправление наслаивания в модальных окнах
+.cdk-overlay-container {
+  z-index: 1000;
+}
+
+.cdk-overlay-pane {
+  z-index: 1000;
+}
+
+// Стили для backdrop модального окна
+.custom-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+// Глобальные стили для модального окна
+.custom-dialog {
+  padding: 0;
+  border-radius: 0;
+}
+
+// Исправляем z-index для всех Material overlay компонентов
+.mat-mdc-select-panel,
+.mat-mdc-datepicker-popup,
+.mat-mdc-menu-panel,
+.mat-mdc-autocomplete-panel,
+.cdk-overlay-container,
+.cdk-overlay-pane,
+.mat-mdc-select-panel-above,
+.mat-mdc-select-panel-below,
+.mat-datepicker-popup {
+  z-index: 99999 !important;
+}
+
+// Глобальные стили для Material form fields
+.mat-mdc-form-field {
+  --mdc-filled-text-field-container-height: 40px;
+  --mdc-outlined-text-field-container-height: 40px;
+  --mat-form-field-container-vertical-padding: var(--padding-md);
+}
+
+// Исправляем позиционирование лейблов
+.mat-mdc-form-field-label,
+.mat-mdc-floating-label {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+// Исправляем позиционирование select value
+.mat-mdc-select-value-text {
+  line-height: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+// Стили для backdrop
+.custom-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+// Дополнительные стили для предотвращения наслаивания
+.mat-mdc-form-field {
+  position: relative;
+  z-index: 1;
+}
+
+.mat-mdc-form-field-infix {
+  position: relative;
+  z-index: 2;
+}
+
+.mat-mdc-select {
+  position: relative;
+  z-index: 3;
+}
+
+.mat-mdc-floating-label {
+  position: relative;
+  z-index: 1;
+}
