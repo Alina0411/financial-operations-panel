@@ -18,7 +18,9 @@ export interface Transaction {
 export const PAYMENT_TYPES = [
   'Пополнение баланса',
   'Списание средств',
-  'Бонусная выплата'
+  'Бонусная выплата',
+  'Комиссия',
+  'Возврат средств'
 ] as const;
 
 export const CASH_TYPES = [

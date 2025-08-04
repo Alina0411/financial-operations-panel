@@ -4,6 +4,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
 import {TransactionService} from '../../../../core/services/transaction.service';
 import {CreateTransactionDto, CreateTransactionForm} from '../../../../core/models/create-transaction.model';
+import {PAYMENT_TYPES, CASH_TYPES, BALANCE_TYPES, AUTHORS} from '../../../../core/models/transaction.model';
 
 @Component({
   selector: 'app-add-transaction-modal',
@@ -20,30 +21,10 @@ export class AddTransactionModalComponent {
   error: string = '';
   loading: boolean = false;
 
-  paymentTypes = [
-    'Пополнение баланса',
-    'Списание средств',
-    'Бонусная выплата',
-    'Комиссия',
-    'Возврат средств'
-  ];
-
-  cashTypes = [
-    'Нал.',
-    'Б.Нал.'
-  ];
-
-  balanceTypes = [
-    'Игровой',
-    'Бонусный',
-  ];
-
-  authors = [
-    'Admin1',
-    'Admin2',
-    'Admin3',
-    'System'
-  ];
+  paymentTypes = PAYMENT_TYPES;
+  cashTypes = CASH_TYPES;
+  balanceTypes = BALANCE_TYPES;
+  authors = AUTHORS;
 
   constructor(
     private fb: FormBuilder,
