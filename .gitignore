@@ -45,6 +45,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Large font files
+src/assets/fonts/
+
 # Environment files
 .env
 .env.local
