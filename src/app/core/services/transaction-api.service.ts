@@ -5,6 +5,7 @@ import {QueryParams} from '../models/query-params.model';
 import {Transaction} from '../models/transaction.model';
 import {CreateTransactionDto} from '../models/create-transaction.model';
 import { environment } from '../../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,46 +14,25 @@ export class TransactionApiService {
   #http = inject(HttpClient);
   baseUrl = environment.apiUrl;
 
-  // Моковые данные для демонстрации
-  private mockTransactions: Transaction[] = [
-    {
-      id: 1,
-      date: '2024-01-15T10:30:00',
-      iziId: 'IZI001',
-      phone: '7771234567',
-      documentNumber: 'DOC001',
-      paymentType: 'Наличные',
-      amount: 15000,
-      author: 'Admin1',
-      cashType: 'Касса',
-      balanceType: 'Основной',
-      dockLink: 'https://example.com/doc1',
-      comment: 'Первая транзакция'
-    },
-    {
-      id: 2,
-      date: '2024-01-16T14:20:00',
-      iziId: 'IZI002',
-      phone: '7777654321',
-      documentNumber: 'DOC002',
-      paymentType: 'Банковская карта',
-      amount: 25000,
-      author: 'Admin2',
-      cashType: 'Банк',
-      balanceType: 'Резервный',
-      dockLink: 'https://example.com/doc2',
-      comment: 'Вторая транзакция'
-    }
-  ];
-
   fetchTransactions(params: QueryParams) {
-    // В production используем моковые данные
+    // В production используем статический JSON файл
     if (environment.production) {
-      const response = new HttpResponse({
-        body: this.mockTransactions,
-        status: 200
-      });
-      return of(response);
+      return this.#http
+        .get<{transactions: Transaction[]}>('/assets/data/db.json')
+        .pipe(
+          catchError((error) => {
+            return throwError(() => new Error('Ошибка загрузки транзакций'));
+          })
+        )
+        .pipe(
+          map(response => {
+            const response2 = new HttpResponse({
+              body: response.transactions,
+              status: 200
+            });
+            return response2;
+          })
+        );
     }
 
     // В development используем json-server
@@ -76,13 +56,12 @@ export class TransactionApiService {
   }
 
   createTransaction(transaction: CreateTransactionDto) {
-    // В production добавляем к моковым данным
+    // В production просто возвращаем успех (данные не сохраняются)
     if (environment.production) {
       const newTransaction: Transaction = {
         ...transaction,
-        id: this.mockTransactions.length + 1
+        id: Date.now() // Временный ID
       };
-      this.mockTransactions.push(newTransaction);
       return of(newTransaction);
     }
 
