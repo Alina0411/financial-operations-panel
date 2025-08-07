@@ -8,7 +8,7 @@
     "serve-api": "json-server --watch data/db.json --port 3000 --host 0.0.0.0",
     "build": "ng build",
     "build:prod": "ng build --configuration production",
-    "start:prod": "npm run build:prod && concurrently \"npm run serve-api\" \"npx http-server dist/financial-operations-panel/browser -p ${PORT:-4200} -a 0.0.0.0 --cors\"",
+    "start:prod": "npm run build:prod && npx http-server dist/financial-operations-panel/browser -p ${PORT:-4200} -a 0.0.0.0",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
