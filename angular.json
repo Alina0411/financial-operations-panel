@@ -81,7 +81,10 @@
               "buildTarget": "financial-operations-panel:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "allowedHosts": ["healthcheck.railway.app", "localhost", "0.0.0.0"]
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
