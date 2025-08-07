@@ -4,13 +4,14 @@ import {catchError, throwError} from 'rxjs';
 import {QueryParams} from '../models/query-params.model';
 import {Transaction} from '../models/transaction.model';
 import {CreateTransactionDto} from '../models/create-transaction.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionApiService {
   #http = inject(HttpClient);
-  baseUrl = 'http://localhost:3000';
+  baseUrl = environment.apiUrl;
 
   fetchTransactions(params: QueryParams) {
     let httpParams = new HttpParams();
