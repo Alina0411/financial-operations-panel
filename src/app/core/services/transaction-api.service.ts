@@ -1,11 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import {catchError, throwError, of} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {QueryParams} from '../models/query-params.model';
 import {Transaction} from '../models/transaction.model';
 import {CreateTransactionDto} from '../models/create-transaction.model';
 import { environment } from '../../../environments/environment';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,17 +20,32 @@ export class TransactionApiService {
       return this.#http
         .get<{transactions: Transaction[]}>('/assets/data/db.json')
         .pipe(
-          catchError((error) => {
-            return throwError(() => new Error('Ошибка загрузки транзакций'));
-          })
-        )
-        .pipe(
           map(response => {
+            let transactions = response.transactions;
+            
+            // Применяем сортировку на клиентской стороне
+            if (params._sort && params._order) {
+              transactions = this.sortTransactions(transactions, params._sort, params._order);
+            }
+            
+            // Применяем пагинацию на клиентской стороне
+            if (params._page && params._limit) {
+              const startIndex = (params._page - 1) * params._limit;
+              const endIndex = startIndex + params._limit;
+              transactions = transactions.slice(startIndex, endIndex);
+            }
+            
             const response2 = new HttpResponse({
-              body: response.transactions,
-              status: 200
+              body: transactions,
+              status: 200,
+              headers: new Map([
+                ['X-Total-Count', response.transactions.length.toString()]
+              ]) as any
             });
             return response2;
+          }),
+          catchError((error) => {
+            return throwError(() => new Error('Ошибка загрузки транзакций'));
           })
         );
     }
@@ -73,5 +88,32 @@ export class TransactionApiService {
           return throwError(() => new Error('Ошибка создания транзакции'));
         })
       );
+  }
+
+  private sortTransactions(transactions: Transaction[], column: string, direction: 'asc' | 'desc'): Transaction[] {
+    return [...transactions].sort((a, b) => {
+      let aValue: any = a[column as keyof Transaction];
+      let bValue: any = b[column as keyof Transaction];
+
+      // Обработка специальных типов данных
+      if (column === 'date') {
+        aValue = new Date(aValue).getTime();
+        bValue = new Date(bValue).getTime();
+      } else if (column === 'amount') {
+        aValue = Number(aValue);
+        bValue = Number(bValue);
+      } else if (typeof aValue === 'string') {
+        aValue = aValue.toLowerCase();
+        bValue = bValue.toLowerCase();
+      }
+
+      if (aValue < bValue) {
+        return direction === 'asc' ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return direction === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
   }
 }
