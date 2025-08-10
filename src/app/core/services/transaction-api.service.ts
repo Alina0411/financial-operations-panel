@@ -97,14 +97,27 @@ export class TransactionApiService {
 
       // Обработка специальных типов данных
       if (column === 'date') {
-        aValue = new Date(aValue).getTime();
-        bValue = new Date(bValue).getTime();
+        // Более надежная обработка дат
+        const dateA = new Date(aValue);
+        const dateB = new Date(bValue);
+        
+        // Проверяем, что даты валидные
+        if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+          console.warn('Invalid date format:', aValue, bValue);
+          return 0;
+        }
+        
+        aValue = dateA.getTime();
+        bValue = dateB.getTime();
       } else if (column === 'amount') {
-        aValue = Number(aValue);
-        bValue = Number(bValue);
+        aValue = Number(aValue) || 0;
+        bValue = Number(bValue) || 0;
       } else if (typeof aValue === 'string') {
         aValue = aValue.toLowerCase();
         bValue = bValue.toLowerCase();
+      } else if (typeof aValue === 'number') {
+        aValue = aValue || 0;
+        bValue = bValue || 0;
       }
 
       if (aValue < bValue) {

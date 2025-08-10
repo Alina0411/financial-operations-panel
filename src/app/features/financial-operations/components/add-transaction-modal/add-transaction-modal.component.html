@@ -108,7 +108,7 @@
 
       <div class="form-row">
         <div class="input-group">
-          <label class="input-label">Тип наличности *</label>
+          <label class="input-label">Тип оплаты *</label>
           <select formControlName="cashType" class="form-input" required>
             <option value="">Выберите тип</option>
             @for (type of cashTypes; track type) {
@@ -116,7 +116,7 @@
             }
           </select>
           @if (cashType?.invalid && cashType?.touched) {
-            <div class="error-text">Тип наличности обязателен</div>
+            <div class="error-text">Тип оплаты обязателен</div>
           }
         </div>
 
