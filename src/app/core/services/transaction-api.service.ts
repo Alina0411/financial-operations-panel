@@ -23,6 +23,11 @@ export class TransactionApiService {
           map(response => {
             let transactions = response.transactions;
             
+            // Применяем фильтрацию по датам на клиентской стороне
+            if (params.date_gte && params.date_lte) {
+              transactions = this.filterTransactionsByDate(transactions, params.date_gte, params.date_lte);
+            }
+            
             // Применяем сортировку на клиентской стороне
             if (params._sort && params._order) {
               transactions = this.sortTransactions(transactions, params._sort, params._order);
@@ -88,6 +93,16 @@ export class TransactionApiService {
           return throwError(() => new Error('Ошибка создания транзакции'));
         })
       );
+  }
+
+  private filterTransactionsByDate(transactions: Transaction[], startDate: string, endDate: string): Transaction[] {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    return transactions.filter(transaction => {
+      const transactionDate = new Date(transaction.date);
+      return transactionDate >= start && transactionDate <= end;
+    });
   }
 
   private sortTransactions(transactions: Transaction[], column: string, direction: 'asc' | 'desc'): Transaction[] {

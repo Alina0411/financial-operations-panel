@@ -19,6 +19,7 @@
             <div class="btn-sort">
               <button
                 class="sort-btn sort-asc"
+                [class.active]="isSortAscActive(column.key)"
                 type="button"
                 [attr.aria-pressed]="isSortAscActive(column.key)"
                 aria-label="Сортировать по возрастанию">
@@ -26,6 +27,7 @@
               </button>
               <button
                 class="sort-btn sort-desc"
+                [class.active]="isSortDescActive(column.key)"
                 type="button"
                 [attr.aria-pressed]="isSortDescActive(column.key)"
                 aria-label="Сортировать по убыванию">
